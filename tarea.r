@@ -1,11 +1,15 @@
-install.packages("jsonlite")
-library(jsonlite)
+install.packages("jsonlite");
+library(jsonlite);
 
-### fromJSON takes JSON strings
+
 db <- fromJSON("data.json")
-muertes <- db$MEX$data$new_deaths_smoothed_per_million
-dias <- as.Date(db$MEX$data$date)
-vacunaciones <- db$MEX$data$new_vaccinations_smoothed_per_million
+Muertes <- db$MEX$data$new_deaths_smoothed
+Fechas <- as.Date(db$MEX$data$date)
+Vacunaciones <- db$MEX$data$total_vaccinations
 
-plot(muertes, xaxt = "n", type = "l", col="red");
-# plot(vacunaciones, xaxt = "n", type = "l", col="red");
+plot(Fechas[!is.na(Vacunaciones)],Vacunaciones[!is.na(Vacunaciones)],
+type="l", col="blue", xlab="Años", ylab="Vacunaciones",
+ main="Vacunas aplicadas");
+
+#plot(Fechas, Muertes,  type = "l", col="green", xlab="Años", main="Muertes diarias por covid en Mexico");
+
